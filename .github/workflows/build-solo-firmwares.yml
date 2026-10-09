@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'v*'
+      - 'gdeq-v*'   # this fork's own releases (upstream: 'v*')
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -30,6 +30,7 @@ jobs:
           envs=$(grep -rh '^\[env:' solo/ \
             | sed 's/\[env://;s/\]//' \
             | grep -E '_solo_dual$|_solo_lvgl$' \
+            | grep -E '^WioTrackerL1_GDEQ0426T82_' \
             | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "envs=$envs" >> $GITHUB_OUTPUT
 
